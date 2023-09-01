@@ -97,7 +97,7 @@ const displayCards = (data) => {
                         <figure><img class="w-[500px] h-[260px] rounded-xl" src="${element?.thumbnail}" alt="Shoes" /></figure>
                         <div>
                         <div id="time" class="text-end -mt-12 pr-6 ${seconds ? seconds : "hidden"}">
-                         <span class="text-center -mt-10 p-1 rounded-lg text-white bg-[#17171778]"><span id="hour">${Finalhours}</span> hrs <span id="minutes">${finalMinutes}</span> min ago</span>
+                         <span class="text-center -mt-10 p-1 rounded-lg text-white bg-[#171717d9]"><span id="hour">${Finalhours}</span> hrs <span id="minutes">${finalMinutes}</span> min ago</span>
                         </div>
                         </div>
                         <div class="mt-8">
