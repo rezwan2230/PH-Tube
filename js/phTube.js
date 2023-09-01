@@ -16,7 +16,7 @@ const makeHeader = () => {
                 <button id="sort-by-view-btn" class="btn md:px-12 md:h-[60px] md:w-[245px]  text-xl ">Sort by view</button>
             </div>
             <div>
-                <button class="btn bg-[#FF1F3D] text-lg text-white md:px-8 hover:text-black h-[50px] w-[100px]">Blog</button>
+                <button id="blog-btn" class="btn bg-[#FF1F3D] text-lg text-white md:px-8 hover:text-black h-[50px] w-[100px]">Blog</button>
             </div>
     </div>
     `
@@ -39,7 +39,6 @@ const dataLoad = async () => {
 const makeAllBtn = (data) => {
     const allBtnContainer = document.getElementById('all-btn-container')
     data.forEach(element => {
-        // console.log(element.category_id)
         const div = document.createElement('div')
         div.innerHTML = `
         <button onclick="showCategoryItem(${element?.category_id})" class="btn text-xl">${element?.category}</button>
@@ -54,15 +53,8 @@ const showCategoryItem = async (id) => {
     const data = await res.json()
     const actualData = data.data
     dataForSort = actualData
-    // sorting(dataForSort)    
     displayCards(actualData)
 }
-
-
-// const hudai = ((dataForSort)=>{
-//     sorting(dataForSort)
-// })
-
 
 
 const displayCards = (data) => {
@@ -86,10 +78,8 @@ const displayCards = (data) => {
     cardContainer.innerHTML = ''
 
     data.forEach((element) => {
-        // console.log(element)
         const dateString = element.others.posted_date
         const seconds = parseInt(dateString)
-        // console.log(seconds)
         if (!isNaN(seconds)) {
             hours = seconds / 3600
             Finalhours = parseInt(hours)
@@ -100,7 +90,6 @@ const displayCards = (data) => {
             Finalhours = ""
             finalMinutes = ""
             const time = document.getElementById('time')
-            // time.classList = "hidden"
         }
         const div = document.createElement('div')
         div.innerHTML = `
@@ -134,13 +123,6 @@ const displayCards = (data) => {
     })
 }
 
-// const showAllCards = (data) => {
-//     data.forEach((element) => {
-//         showCategoryItem(element.category_id)
-//     })
-// }
-
-
 
 const sorting = (data) =>{
     data.sort((a,b)=>{
@@ -154,15 +136,18 @@ const sorting = (data) =>{
     })
     console.log(data)
     displayCards(data)
-    
-
-
 }
+
 
 makeHeader()
 
 dataLoad()
 
+
+document.getElementById('blog-btn').addEventListener('click',function(){
+    window.open('index2.html', '_blank');
+ })
+ 
 
 document.getElementById('sort-by-view-btn').addEventListener('click',function(){
     sorting(dataForSort) 
