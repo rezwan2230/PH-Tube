@@ -3,20 +3,20 @@ let hours
 let Finalhours
 let minutes
 let finalMinutes
-
+var dataForSort
 const makeHeader = () => {
     const header = document.getElementById('header')
     const div = document.createElement('div')
-    div.classList = 'flex items-center justify-between mt-12'
+    div.classList = 'flex items-center justify-between mt-10  gap-16'
     div.innerHTML = `
     <div>
-            <img src="./images/Logo.png" alt="">
+            <img class="w-48 md:w-52" src="./images/Logo.png" alt="">
             </div>
             <div class="flex justify-center ">
-                <button class="btn px-12 h-[75px] w-[250px]  text-xl ">Sort by view</button>
+                <button id="sort-by-view-btn" class="btn md:px-12 md:h-[60px] md:w-[245px]  text-xl ">Sort by view</button>
             </div>
             <div>
-                <button class="btn bg-[#FF1F3D] text-lg text-white px-8 hover:text-black h-[60px] w-[100px]">Blog</button>
+                <button class="btn bg-[#FF1F3D] text-lg text-white md:px-8 hover:text-black h-[50px] w-[100px]">Blog</button>
             </div>
     </div>
     `
@@ -53,8 +53,15 @@ const showCategoryItem = async (id) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`)
     const data = await res.json()
     const actualData = data.data
+    dataForSort = actualData
+    // sorting(dataForSort)    
     displayCards(actualData)
 }
+
+
+// const hudai = ((dataForSort)=>{
+//     sorting(dataForSort)
+// })
 
 
 
@@ -127,14 +134,36 @@ const displayCards = (data) => {
     })
 }
 
-const showAllCards = (data) => {
-    data.forEach((element) => {
-        showCategoryItem(element.category_id)
+// const showAllCards = (data) => {
+//     data.forEach((element) => {
+//         showCategoryItem(element.category_id)
+//     })
+// }
+
+
+
+const sorting = (data) =>{
+    data.sort((a,b)=>{
+        const viewStrA = a.others.views
+        const viewStrB = b.others.views
+        const modifiedViewA = parseFloat(viewStrA.slice(0,3))
+        const modifiedViewB = parseFloat(viewStrB.slice(0,3))
+       const viewA = modifiedViewA*1000
+       const viewB = modifiedViewB*1000
+        return viewB-viewA
     })
+    console.log(data)
+    displayCards(data)
+    
+
+
 }
-
-
 
 makeHeader()
 
 dataLoad()
+
+
+document.getElementById('sort-by-view-btn').addEventListener('click',function(){
+    sorting(dataForSort) 
+})
